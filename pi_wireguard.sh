@@ -22,5 +22,4 @@ sudo mkdir /home/pihole
 sudo mkdir /home/wireguard
 sudo mkdir /home/pi-wireguard
 cd /home/pi-wireguard
-sudo git clone https://raw.githubusercontent.com/mggons93/pi_wireguard/refs/heads/main/docker-compose.yml
 sudo docker compose up -d
