@@ -21,5 +21,5 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 sudo mkdir /home/pihole
 sudo mkdir /home/wireguard
 cd
-cd /pi-wireguard
+cd /pi_wireguard
 sudo docker compose up -d
