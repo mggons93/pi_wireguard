@@ -7,7 +7,7 @@ services:
       - WG_HOST=wirednssya.duckdns.org
 
       # ⚠️ Change the Web UI Password:
-      - PASSWORD=$$2a$$12$$sqNgVf4k3OcrF7cnITZKIOGD7RElDRmvzdYLagVgkd4PnEZkQAXbG
+      - PASSWORD_HASH=$$2a$$12$$sqNgVf4k3OcrF7cnITZKIOGD7RElDRmvzdYLagVgkd4PnEZkQAXbG
 
       # 💡 This is the Pi-Hole Container's IP Address
       - WG_DEFAULT_DNS=10.8.1.3
