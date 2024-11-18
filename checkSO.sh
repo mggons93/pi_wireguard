@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Obtener la versión de Ubuntu
 VERSION=$(lsb_release -r | awk '{print $2}')
 
@@ -6,5 +8,10 @@ if [ "$VERSION" == "20.04" ]; then
     echo "Estás en Ubuntu 20.04. No es necesario realizar la actualización."
 else
     echo "Tu versión de Ubuntu no es 20.04. Iniciando la actualización..."
-    sudo do-release-upgrade
+
+    # Ejecutar la actualización automáticamente sin intervención
+    sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y
+
+    # Realizar la actualización a la siguiente versión
+    sudo do-release-upgrade -f DistUpgradeViewNonInteractive -y
 fi
