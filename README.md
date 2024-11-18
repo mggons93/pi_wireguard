@@ -1,3 +1,7 @@
+<p align="center">
+<a href=></a><img src="https://i.ibb.co/MsYHgLz/Sin-t-tulo.png"/>
+</p>
+
 ## Te recuerdo para usar se requiere que use ubuntucore version 20.04 o superior
 
 Te dejamos el URL Del ISO aqui:
