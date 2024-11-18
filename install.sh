@@ -1,6 +1,13 @@
-# Ejecutando BASH SolveDNS
-Bash checkSO.sh
+#!/bin/bash
+
+# Definir la ruta base
+BASE_PATH="/home/ubuntucore/pi_wireguard"
+
+# Ejecutar los scripts
+bash $BASE_PATH/checkSO.sh
 sleep 5
-Bash solveDNS.sh
+
+bash $BASE_PATH/solveDNS.sh
 sleep 5
-Bash pi_wireguard.sh
+
+bash $BASE_PATH/pi_wireguard.sh
