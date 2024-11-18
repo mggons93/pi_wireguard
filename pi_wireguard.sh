@@ -20,6 +20,7 @@ fi
 
 echo "DNS configurado correctamente a 8.8.8.8 y 1.1.1.1"
 
+echo "Reiniciando Servicio DNS"
 sudo systemctl restart systemd-resolved
 
 # Actualiza los índices de los paquetes
