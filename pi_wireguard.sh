@@ -1,5 +1,5 @@
 # Ejecutando BASH SolveDNS
-cd pi_wireguard/
+cd pi_wireguard
 Bash solveDNS.sh
 
 echo "Reiniciando Servicio DNS"
@@ -25,7 +25,5 @@ sudo systemctl disable systemd-resolved
 #Creando directorios
 sudo mkdir /home/pihole
 sudo mkdir /home/wireguard
-cd
-cd pi_wireguard/
 sudo docker compose up -d
 #Completado
