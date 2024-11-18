@@ -16,7 +16,7 @@ sudo do-release-upgrade
 
 ## Te recuerdo una vez instalado, instalar el comando Git antes de empezar la instalacion
 ```bash
-sudo apt install git
+sudo apt install git -y
 ```
 
 ## Luego de instalar git, sigue las instrucciones abajo:
