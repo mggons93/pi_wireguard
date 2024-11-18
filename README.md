@@ -1,6 +1,6 @@
 ## Te recuerdo para usar se requiere que use ubuntucore version 20.04 o superior
 
-##Te dejamos el URL Del ISO aqui:
+Te dejamos el URL Del ISO aqui:
 ```bash
 https://www.mediafire.com/file/x2iuy8kq6cobqs7/Ubuntu_Mini%2528x64%2529.iso/file
 ```
