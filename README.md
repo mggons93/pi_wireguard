@@ -5,7 +5,7 @@ Te dejamos el URL Del ISO aqui:
 https://www.mediafire.com/file/x2iuy8kq6cobqs7/Ubuntu_Mini%2528x64%2529.iso/file
 ```
 
-## Te recuerdo una vez instalado ubuntu core -> Actualizar a 20.04 usando el comando
+## Te recuerdo una vez instalado ubuntu core -> Actualizar 18.06 a 20.04 usando el comando
 ```bash
 sudo do-release-upgrade
 ```
