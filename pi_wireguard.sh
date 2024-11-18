@@ -19,6 +19,9 @@ if command -v nmcli > /dev/null; then
 fi
 
 echo "DNS configurado correctamente a 8.8.8.8 y 1.1.1.1"
+
+sudo systemctl restart systemd-resolved
+
 # Actualiza los índices de los paquetes
 sudo apt update && sudo apt upgrade -y
 # Instala Curl
