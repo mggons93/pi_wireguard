@@ -1,5 +1,6 @@
 # Ejecutando BASH SolveDNS
 cd pi_wireguard
+Bash checkSO.sh
 Bash solveDNS.sh
 
 echo "Reiniciando Servicio DNS"
