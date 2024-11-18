@@ -1,3 +1,6 @@
+# Ejecutando BASH SolveDNS
+Bash solveDNS.sh
+
 echo "Reiniciando Servicio DNS"
 sudo systemctl restart systemd-resolved
 
