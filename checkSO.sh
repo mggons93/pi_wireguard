@@ -13,5 +13,12 @@ else
     sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y
 
     # Realizar la actualización a la siguiente versión
-    sudo do-release-upgrade -f DistUpgradeViewNonInteractive -y
+    sudo do-release-upgrade -f DistUpgradeViewNonInteractive
+
+    # Esperar unos segundos antes de reiniciar, para asegurarse de que el proceso de actualización haya terminado
+    echo "Actualización completada. Reiniciando el sistema..."
+    sleep 5  # espera 5 segundos
+
+    # Reiniciar el sistema automáticamente
+    sudo reboot
 fi
