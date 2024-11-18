@@ -9,11 +9,6 @@ Te dejamos el URL Del ISO aqui:
 https://www.mediafire.com/file/x2iuy8kq6cobqs7/Ubuntu_Mini%2528x64%2529.iso/file
 ```
 
-## Te recuerdo una vez instalado ubuntu core -> Actualizar 18.06 a 20.04 usando el comando
-```bash
-sudo do-release-upgrade
-```
-
 ## Te recuerdo una vez instalado, instalar el comando Git antes de empezar la instalacion
 ```bash
 sudo apt install git -y
@@ -24,7 +19,7 @@ sudo apt install git -y
 ```bash
 sudo git clone https://github.com/mggons93/pi_wireguard.git
 cd pi_wireguard/
-bash pi_wireguard.sh
+bash install.sh
 
 ```
 
