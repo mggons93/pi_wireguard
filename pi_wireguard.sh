@@ -26,4 +26,4 @@ sudo systemctl disable systemd-resolved
 sudo mkdir /home/pihole
 sudo mkdir /home/wireguard
 sudo docker compose up -d
-#Completado
+# Completado
