@@ -1,65 +1,57 @@
 #!/bin/bash
 
-# Direcciones DNS a configurar
-DNS1="8.8.8.8"
-DNS2="8.8.4.4"
-DNS3="1.1.1.1"
+# Paso 1: Verificar estado de systemd-resolved
+echo "Verificando el estado de systemd-resolved..."
+systemctl status systemd-resolved | grep "Active:"
 
-# Función para configurar DNS usando netplan
-configure_netplan() {
-    echo "Configurando DNS con netplan..."
-    
-    # Encontrar el archivo de configuración de netplan
-    NETPLAN_FILE=$(ls /etc/netplan/*.yaml | head -n 1)
-    
-    if [ -z "$NETPLAN_FILE" ]; then
-        echo "No se encontró un archivo de configuración de netplan."
-        exit 1
-    fi
-
-    # Añadir las DNS al archivo de configuración de netplan
-    sudo sed -i "/ethernets:/a \ \ \ \ nameservers:\n\ \ \ \ \ \ \ \ addresses:\n\ \ \ \ \ \ \ \ \ - $DNS1\n\ \ \ \ \ \ \ \ \ - $DNS2\n\ \ \ \ \ \ \ \ \ - $DNS3" "$NETPLAN_FILE"
-    
-    # Aplicar los cambios
-    sudo netplan apply
-    
-    echo "DNS configuradas correctamente con netplan."
-}
-
-# Función para configurar DNS usando systemd-resolved
-configure_systemd_resolved() {
-    echo "Configurando DNS con systemd-resolved..."
-    
-    # Editar el archivo de configuración de resolved.conf
-    sudo sed -i "s/^DNS=.*/DNS=$DNS1 $DNS2 $DNS3/" /etc/systemd/resolved.conf
-    
-    # Reiniciar el servicio systemd-resolved para aplicar los cambios
+# Si el servicio no está activo, reiniciamos systemd-resolved
+if ! systemctl is-active --quiet systemd-resolved; then
+    echo "Reiniciando systemd-resolved..."
     sudo systemctl restart systemd-resolved
-    
-    echo "DNS configuradas correctamente con systemd-resolved."
-}
-
-# Función para configurar DNS en /etc/resolv.conf (solo si no se usa systemd)
-configure_resolv_conf() {
-    echo "Configurando DNS en /etc/resolv.conf..."
-
-    echo "nameserver $DNS1" | sudo tee /etc/resolv.conf > /dev/null
-    echo "nameserver $DNS2" | sudo tee -a /etc/resolv.conf > /dev/null
-    echo "nameserver $DNS3" | sudo tee -a /etc/resolv.conf > /dev/null
-
-    echo "DNS configuradas correctamente en /etc/resolv.conf."
-}
-
-# Comprobar si estamos usando netplan o systemd
-if [ -f "/etc/netplan" ]; then
-    configure_netplan
-elif [ -f "/etc/systemd/resolved.conf" ]; then
-    configure_systemd_resolved
 else
-    # Si no usamos netplan ni systemd, configuramos resolv.conf directamente
-    configure_resolv_conf
+    echo "El servicio systemd-resolved está activo."
 fi
 
-# Confirmar los cambios
-echo "Configuración de DNS completada. Comprobando configuración..."
-systemd-resolve --status
+# Paso 2: Comprobar si los DNS están configurados correctamente
+echo "Verificando la configuración de DNS..."
+resolvectl status | grep "DNS Servers"
+
+# Configurar DNS en el caso de que no estén configurados correctamente
+echo "Configurando DNS con los servidores de Cloudflare (1.1.1.1 y 1.0.0.1)..."
+sudo bash -c 'echo -e "[Resolve]\nDNS=1.1.1.1 1.0.0.1\nFallbackDNS=8.8.8.8 8.8.4.4" > /etc/systemd/resolved.conf'
+
+# Reiniciar el servicio de DNS
+sudo systemctl restart systemd-resolved
+echo "DNS configurado correctamente."
+
+# Paso 3: Verificar si Docker puede acceder a registry-1.docker.io
+echo "Verificando conectividad a Docker Hub..."
+nslookup registry-1.docker.io
+
+if [ $? -eq 0 ]; then
+    echo "Conectividad con Docker Hub establecida correctamente."
+else
+    echo "Error de conectividad con Docker Hub. Revisar configuración DNS o la red."
+    exit 1
+fi
+
+# Paso 4: Verificar configuración de DNS para Docker
+echo "Verificando la configuración de DNS de Docker..."
+DOCKER_DAEMON_CONFIG="/etc/docker/daemon.json"
+
+# Verificar si el archivo existe
+if [ ! -f "$DOCKER_DAEMON_CONFIG" ]; then
+    echo "El archivo de configuración de Docker no existe. Creando uno..."
+    sudo touch "$DOCKER_DAEMON_CONFIG"
+fi
+
+# Añadir o corregir la configuración DNS de Docker
+sudo jq '. + {"dns": ["1.1.1.1", "1.0.0.1"]}' "$DOCKER_DAEMON_CONFIG" > "$DOCKER_DAEMON_CONFIG.tmp" && mv "$DOCKER_DAEMON_CONFIG.tmp" "$DOCKER_DAEMON_CONFIG"
+
+# Reiniciar Docker para aplicar la configuración
+sudo systemctl restart docker
+echo "Configuración DNS de Docker actualizada."
+
+# Paso 5: Comprobar el estado de Docker
+echo "Verificando el estado de Docker..."
+docker info | grep "Server Version"
