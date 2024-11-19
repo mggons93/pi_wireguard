@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Definir la ruta base
-BASE_PATH="/home/$USER/pi_wireguard"
+# Definir la ruta base usando $SUDO_USER para obtener el usuario original
+BASE_PATH="/home/$SUDO_USER/pi_wireguard"
 
 # Ejecutar los scripts
 bash $BASE_PATH/checkSO.sh
