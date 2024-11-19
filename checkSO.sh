@@ -2,12 +2,15 @@
 
 # Obtener la versión de Ubuntu
 VERSION=$(lsb_release -r | awk '{print $2}')
+VERSION_MAJOR=$(echo $VERSION | cut -d '.' -f 1)
+VERSION_MINOR=$(echo $VERSION | cut -d '.' -f 2)
 
-# Comprobar si la versión es 20.04 o si ya estamos en una versión reciente
-if [[ "$VERSION" == "20.04" ]]; then
-    echo "Estás en Ubuntu 20.04. Comenzando la actualización..."
+# Comprobar si la versión es 20.04 o superior
+if [ "$VERSION_MAJOR" -ge 20 ]; then
+    echo "Estás en Ubuntu $VERSION. No es necesario realizar la actualización, ya que tu versión es 20.04 o superior."
+    exit 0
 else
-    echo "Tu versión de Ubuntu no es 20.04. Se procederá con la actualización."
+    echo "Tu versión de Ubuntu es inferior a 20.04. Se procederá con la actualización."
 fi
 
 # Actualizar todos los paquetes disponibles
