@@ -6,6 +6,7 @@
 ```bash
 https://www.mediafire.com/file/x2iuy8kq6cobqs7/Ubuntu_Mini%2528x64%2529.iso/file
 ```
+## Te dejamos el URL Del ISO aqui: (Ubuntu Core 24.04)
 ```bash
 https://releases.ubuntu.com/24.04/ubuntu-24.04.1-live-server-amd64.iso
 ```
