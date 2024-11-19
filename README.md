@@ -27,7 +27,7 @@ cd pi_wireguard/
 bash install.sh
 
 ```
-
+## El script actualiza de manera manual el sistema operativo Ubuntu core.
 
 ## Group
 <a href="https://chat.whatsapp.com/EcBkUA3QHCk5cWhyKc0eUZ" target="_blank">
