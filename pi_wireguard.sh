@@ -20,7 +20,7 @@ sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
 #Creando directorios
 sudo mkdir /home/pihole
-sudo mkdir /home/wireguard
+sudo mkdir /home/wg-easy
 sudo docker compose up -d
 # Completado
 
