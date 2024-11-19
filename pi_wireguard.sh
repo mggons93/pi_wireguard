@@ -23,6 +23,3 @@ sudo mkdir /home/pihole
 sudo mkdir /home/wg-easy
 sudo docker compose up -d
 # Completado
-
-# Eliminar la entrada de cron que ejecuta este script
-sudo sed -i '/@reboot /home/ubuntucore/install.sh/d' /etc/crontab
