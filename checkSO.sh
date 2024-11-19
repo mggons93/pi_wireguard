@@ -22,7 +22,6 @@ else
     # Añadir el script `install.sh` a cron para que se ejecute al reiniciar
     echo "@reboot /home/ubuntucore/install.sh" | sudo tee -a /etc/crontab > /dev/null
 
-
     # Reiniciar el sistema automáticamente
     sudo reboot
 fi
