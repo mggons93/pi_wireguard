@@ -2,9 +2,12 @@
 <a href=></a><img src="https://i.ibb.co/MsYHgLz/Sin-t-tulo.png"/>
 </p>
 
-## Te dejamos el URL Del ISO aqui:
+## Te dejamos el URL Del ISO aqui: (Ubuntu Core 18.04)
 ```bash
 https://www.mediafire.com/file/x2iuy8kq6cobqs7/Ubuntu_Mini%2528x64%2529.iso/file
+```
+```bash
+https://releases.ubuntu.com/24.04/ubuntu-24.04.1-live-server-amd64.iso
 ```
 
 ## Te recuerdo una vez instalado, instalar el comando Git antes de empezar la instalacion
