@@ -2,9 +2,7 @@
 <a href=></a><img src="https://i.ibb.co/MsYHgLz/Sin-t-tulo.png"/>
 </p>
 
-## Te recuerdo para usar se requiere que use ubuntucore version 20.04 o superior
-
-Te dejamos el URL Del ISO aqui:
+## Te dejamos el URL Del ISO aqui:
 ```bash
 https://www.mediafire.com/file/x2iuy8kq6cobqs7/Ubuntu_Mini%2528x64%2529.iso/file
 ```
@@ -19,6 +17,12 @@ sudo apt install git -y
 
 ```bash
 sudo git clone https://github.com/mggons93/pi_wireguard.git
+cd pi_wireguard/
+bash install.sh
+
+```
+## Tendras que hacer varias veces la actualizacion de sistema operativo para poderlo usar , para que se ejecute sin problemas tendras que actualizar a una version superior a la 22.04 de ubuntu, si lo vas a usar con una VM requiere como min en disco 30GB y la tarjeta de red debera estar en modo puente.
+```bash
 cd pi_wireguard/
 bash install.sh
 
