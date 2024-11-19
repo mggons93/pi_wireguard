@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Definir la ruta base
-BASE_PATH="/home/ubuntucore/pi_wireguard"
+BASE_PATH="/home/$USER/pi_wireguard"
 
 # Ejecutar los scripts
 bash $BASE_PATH/checkSO.sh
