@@ -18,5 +18,11 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 #Creando directorios
 sudo mkdir /home/pihole
 sudo mkdir /home/wg-easy
+# Descargando paquetes sin iniciar
 sudo docker compose pull
+#Detener el servicio DNS
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
+#Iniciando Paquetes en desacople
+sudo docker compose up -d
 # Completado
