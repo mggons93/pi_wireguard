@@ -11,7 +11,7 @@ https://www.mediafire.com/file/x2iuy8kq6cobqs7/Ubuntu_Mini%2528x64%2529.iso/file
 
 ## Te recuerdo una vez instalado, instalar el comando Git antes de empezar la instalacion
 ```bash
-sudo apt update && sudp apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 sudo apt install git -y
 ```
 
