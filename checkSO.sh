@@ -3,25 +3,43 @@
 # Obtener la versión de Ubuntu
 VERSION=$(lsb_release -r | awk '{print $2}')
 
-# Comprobar si la versión es 20.04
-if [ "$VERSION" == "20.04" ]; then
-    echo "Estás en Ubuntu 20.04. No es necesario realizar la actualización."
+# Comprobar si la versión es 20.04 o si ya estamos en una versión reciente
+if [[ "$VERSION" == "20.04" ]]; then
+    echo "Estás en Ubuntu 20.04. Comenzando la actualización..."
 else
-    echo "Tu versión de Ubuntu no es 20.04. Iniciando la actualización..."
+    echo "Tu versión de Ubuntu no es 20.04. Se procederá con la actualización."
+fi
 
-    # Ejecutar la actualización automáticamente sin intervención
-    sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade -y
+# Actualizar todos los paquetes disponibles
+echo "Actualizando lista de paquetes..."
+sudo apt update -y
 
-    # Realizar la actualización a la siguiente versión
-    sudo do-release-upgrade -f DistUpgradeViewNonInteractive
+echo "Actualizando paquetes del sistema..."
+sudo apt upgrade -y
 
-    # Esperar unos segundos antes de reiniciar, para asegurarse de que el proceso de actualización haya terminado
-    echo "Actualización completada. Reiniciando el sistema..."
-    sleep 5  # espera 5 segundos
+echo "Realizando dist-upgrade para una actualización más profunda..."
+sudo apt dist-upgrade -y
 
-    # Añadir el script `install.sh` a cron para que se ejecute al reiniciar
-    echo "@reboot /home/ubuntucore/install.sh" | sudo tee -a /etc/crontab > /dev/null
+# Limpiar paquetes no necesarios
+echo "Limpiando paquetes obsoletos..."
+sudo apt autoremove -y
 
-    # Reiniciar el sistema automáticamente
-    sudo reboot
+# Realizar la actualización a la siguiente versión de Ubuntu
+echo "Iniciando la actualización de la versión de Ubuntu..."
+sudo do-release-upgrade -f DistUpgradeViewNonInteractive
+
+# Comprobar si la actualización fue exitosa
+if [ $? -eq 0 ]; then
+    echo "Actualización completa."
+
+    # Comprobar si el kernel fue actualizado
+    if [ -f /var/run/reboot-required ]; then
+        echo "Se requiere un reinicio para aplicar los cambios. Reiniciando el sistema..."
+        sudo reboot
+    else
+        echo "No se requiere reinicio. El sistema está completamente actualizado."
+    fi
+else
+    echo "Hubo un error durante la actualización."
+    exit 1
 fi
