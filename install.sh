@@ -9,5 +9,5 @@ sleep 5
 
 bash $BASE_PATH/solveDNS.sh
 sleep 5
-
+sudo systemctl restart systemd-resolved
 bash $BASE_PATH/pi_wireguard.sh
