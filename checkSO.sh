@@ -6,11 +6,11 @@ VERSION_MAJOR=$(echo $VERSION | cut -d '.' -f 1)
 VERSION_MINOR=$(echo $VERSION | cut -d '.' -f 2)
 
 # Comprobar si la versión es 20.04 o superior
-if [ "$VERSION_MAJOR" -ge 20 ]; then
-    echo "Estás en Ubuntu $VERSION. No es necesario realizar la actualización, ya que tu versión es 20.04 o superior."
+if [ "$VERSION_MAJOR" -ge 24 ]; then
+    echo "Estás en Ubuntu $VERSION. No es necesario realizar la actualización, ya que tu versión es 24.04 o superior."
     exit 0
 else
-    echo "Tu versión de Ubuntu es inferior a 20.04. Se procederá con la actualización."
+    echo "Tu versión de Ubuntu es inferior a 24.04. Se procederá con la actualización."
 fi
 
 # Actualizar todos los paquetes disponibles
