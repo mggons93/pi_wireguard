@@ -33,6 +33,19 @@ bash install.sh
 ```
 ## El script actualiza de manera manual el sistema operativo Ubuntu core.
 
+## Si tienes un IP estatico deberas colocar la IP en la configuracion de wireguard, en caso de que la ip sea aleatoria deberas usar Duckdns u otro DNS
+```bash
+Con DuckDNS
+environment:
+      # ⚠️ Change the server's hostname (clients will connect to):
+      - WG_HOST=nombre del dns.duckdns.org
+
+Con IP Estatica
+environment:
+      # ⚠️ Change the server's hostname (clients will connect to):
+      - WG_HOST=Ip estatica
+
+```
 ## Group
 <a href="https://chat.whatsapp.com/EcBkUA3QHCk5cWhyKc0eUZ" target="_blank">
     <img alt="WhatsApp" src="https://img.shields.io/badge/WhatsApp%20Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/>
