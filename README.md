@@ -35,6 +35,9 @@ bash install.sh
 
 ## Si tienes un IP estatico deberas colocar la IP en la configuracion de wireguard, en caso de que la ip sea aleatoria deberas usar Duckdns u otro DNS
 ```bash
+
+Cambia el docker-compose en las siguientes configuraciones:
+
 Con DuckDNS
 environment:
       # ⚠️ Change the server's hostname (clients will connect to):
