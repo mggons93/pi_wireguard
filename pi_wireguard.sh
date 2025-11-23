@@ -5,7 +5,7 @@ sudo systemctl restart systemd-resolved
 sudo apt update && sudo apt upgrade -y
 # Instala Curl
 sudo apt install curl -y
-# Instala Git
+# Instala Git<
 sudo apt install git -y
 # Instala net-tools
 sudo apt install net-tools -y
