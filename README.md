@@ -49,6 +49,21 @@ environment:
       - WG_HOST=Ip estatica
 
 ```
+```bash
+generar hash para wireguard
+
+docker run --rm -it ghcr.io/wg-easy/wg-easy wgpw 'YOUR_PASSWORD'
+
+te genera algo asi
+$2b$12$coPqCsPtcFO.Ab99xylBNOW4.Iu7OOA2/ZIboHN6/oyxca3MWo7fW' -> Esto es tu llave en HASH
+
+recuerde añadirle un $ a cada $ que encuentre, esto indica que deben haber $$ enn vez de una:
+
+Antes
+PASSWORD_HASH='$2b$12$coPqCsPtcFO.Ab99xylBNOW4.Iu7OOA2/ZIboHN6/oyxca3MWo7fW' // literally YOUR_PASSWORD
+Despues
+PASSWORD_HASH='$$2b$$12$$coPqCsPtcFO.Ab99xylBNOW4.Iu7OOA2/ZIboHN6/oyxca3MWo7fW' // literally YOUR_PASSWORD
+```
 ## Group
 <a href="https://chat.whatsapp.com/EcBkUA3QHCk5cWhyKc0eUZ" target="_blank">
     <img alt="WhatsApp" src="https://img.shields.io/badge/WhatsApp%20Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/>
