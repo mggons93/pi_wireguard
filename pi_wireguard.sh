@@ -17,14 +17,17 @@ echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.d
 sudo apt update
 # Instalar Docker y sus componentes
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-#Creando directorios
+# Creando directorios
 sudo mkdir /home/pihole
 sudo mkdir /home/wg-easy
+# Carpetas SSL
+sudo mkdir -p /home/wg-easy/ssl
+sudo chown -R 1000:1000 /home/wg-easy/ssl
 # Descargando paquetes sin iniciar
 sudo docker compose pull
-#Detener el servicio DNS
+# Detener el servicio DNS
 sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
-#Iniciando Paquetes en desacople
+# Iniciando Paquetes en desacople
 sudo docker compose up -d
 # Completado
