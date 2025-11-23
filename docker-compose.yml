@@ -2,12 +2,6 @@ version: "3.8"
 
 services:
   wg-easy:
-  #environment:
-    #  Optional:
-    #  - PORT=51821
-    #  - HOST=0.0.0.0
-    #  - INSECURE=false
-    
     environment:
       # ⚠️ Change the server's hostname (clients will connect to):
       - WG_HOST=wirednssya.duckdns.org
@@ -22,7 +16,6 @@ services:
     container_name: wg-easy
     volumes:
       - /home/wg-easy:/etc/wireguard
-      - /lib/modules:/lib/modules:ro
     ports:
       - "51820:51820/udp"
       - "51821:51821/tcp"
@@ -33,13 +26,9 @@ services:
     sysctls:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.src_valid_mark=1
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv6.conf.all.forwarding=1
-      - net.ipv6.conf.default.forwarding=1
     networks:
       wg-easy:
         ipv4_address: 10.8.1.4
-        ipv6_address: fdcc:ad94:bacf:61a3::2a
 
   pihole:
     image: pihole/pihole
@@ -64,4 +53,3 @@ networks:
     ipam:
       config:
         - subnet: 10.8.1.0/24
-        - subnet: fdcc:ad94:bacf:61a3::/64
