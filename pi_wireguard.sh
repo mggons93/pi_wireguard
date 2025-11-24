@@ -28,6 +28,9 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 # Creando directorios
 sudo mkdir /home/pihole
 sudo mkdir /home/wg-easy
+sudo mkdir -p /home/wg-easy/ssl
+sudo mkdir -p /home/pihole/etc-pihole
+sudo mkdir -p /home/pihole/etc-dnsmasq.d
 # Carpetas SSL
 sudo mkdir -p /home/wg-easy/ssl
 sudo chown -R 1000:1000 /home/wg-easy/ssl
