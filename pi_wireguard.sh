@@ -3,14 +3,14 @@ sudo systemctl restart systemd-resolved
 
 # Actualiza los índices de los paquetes
 sudo apt update && sudo apt upgrade -y
-# Instala Curl
-sudo apt install curl -y
-# Instala Git<
-sudo apt install git -y
-# Instala net-tools
-sudo apt install net-tools -y
-# Instala OpenSSL
-sudo apt install openssl -y
+# Instala paquetes esenciales
+sudo apt install curl git net-tools openssl -y
+# ⚠️ Instalar módulos de kernel NECESARIOS para WireGuard e IPv6 NAT
+sudo apt install linux-modules-extra-$(uname -r) -y
+# Instalar iptables e ip6tables (wg-easy los necesita SIEMPRE)
+sudo apt install iptables ip6tables -y
+# Instalar wireguard tools solo por seguridad (algunos minimal fallan sin esto)
+sudo apt install wireguard-tools -y
 
 # Añadir el repositorio oficial de Docker (si no lo tienes)
 sudo mkdir -p /etc/apt/keyrings
