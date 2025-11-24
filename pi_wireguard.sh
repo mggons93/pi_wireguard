@@ -9,6 +9,9 @@ sudo apt install curl -y
 sudo apt install git -y
 # Instala net-tools
 sudo apt install net-tools -y
+# Instala OpenSSL
+sudo apt install openssl -y
+
 # Añadir el repositorio oficial de Docker (si no lo tienes)
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc
