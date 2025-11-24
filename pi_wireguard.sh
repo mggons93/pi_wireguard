@@ -12,6 +12,11 @@ sudo apt install iptables ip6tables -y
 # Instalar wireguard tools solo por seguridad (algunos minimal fallan sin esto)
 sudo apt install wireguard-tools -y
 
+echo "Reiniciando módulos del kernel..."
+sudo modprobe ip_tables
+sudo modprobe ip6_tables
+sudo modprobe wireguard
+
 # Añadir el repositorio oficial de Docker (si no lo tienes)
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc
