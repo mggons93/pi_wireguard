@@ -8,7 +8,7 @@ services:
       # Dominio público
       - WG_HOST=wirednssya.duckdns.org
       # Hash de contraseña (IMPORTANTE: $$ → para docker-compose)
-      - WG_PASSWORD_HASH=$$2a$$12$$sqNgVf4k3OcrF7cnITZKIOGD7RElDRmvzdYLagVgkd4PnEZkQAXbG
+      # - WG_PASSWORD_HASH=$$2a$$12$$sqNgVf4k3OcrF7cnITZKIOGD7RElDRmvzdYLagVgkd4PnEZkQAXbG
       # Puerto WireGuard
       - WG_PORT=51820
       # DNS DEFAULT hacia Pi-hole dentro de la red docker
