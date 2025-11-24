@@ -1,21 +1,27 @@
 #!/bin/bash
 
+# Obtener usuario real (aunque el script se ejecute con sudo)
+REAL_USER=$(logname)
+REAL_HOME=$(eval echo "~$REAL_USER")
+
+echo "Usuario detectado: $REAL_USER"
+echo "Home detectado: $REAL_HOME"
+
 # Mostrar el estado del cron
 ps -ef | grep cr[o]n
 
 # Crear carpeta duckdns si no existe
-mkdir -p ~/duckdns
-cd ~/duckdns
+mkdir -p "$REAL_HOME/duckdns"
+cd "$REAL_HOME/duckdns"
 
-# Crear el script de actualización DuckDNS
-sudo bash -c 'cat << EOF > ~/duckdns/duck.sh
+# Crear duck.sh con el usuario correcto (sin referencias rotas)
+cat << EOF > "$REAL_HOME/duckdns/duck.sh"
 #!/bin/sh
-TOKEN="TU_TOKEN_AQUI" # Ejemplo TOKEN="b2387hsh238hs238hs23"
-DOMAINS="TU_DOMINIO_AQUI"   # Ejemplo: wirednssya
+TOKEN="TU_TOKEN_AQUI"
+DOMAINS="TU_DOMINIO_AQUI"
 HOST="www.duckdns.org"
 PORT="80"
 
-# Construir la petición HTTP
 URI="/update?domains=\$DOMAINS&token=\$TOKEN&ip=&verbose=true"
 
 HTTP_QUERY="GET \$URI HTTP/1.1\r
@@ -25,19 +31,17 @@ Connection: close\r
 \r
 "
 
-# Mostrar la consulta para depuración
 echo "\$HTTP_QUERY"
 
-# Ejecutar petición usando netcat
 (printf "\$HTTP_QUERY" && sleep 5) | nc \$HOST \$PORT
+EOF
 
-EOF'
+# Permisos correctos
+chmod 700 "$REAL_HOME/duckdns/duck.sh"
+chown $REAL_USER:$REAL_USER "$REAL_HOME/duckdns/duck.sh"
 
-# Permisos
-chmod 700 ~/duckdns/duck.sh
-
-# Añadir cronjob cada 5 minutos
-(crontab -l 2>/dev/null; echo "*/5 * * * * ~/duckdns/duck.sh >/dev/null 2>&1") | crontab -
+# Agregar cronjob cada 5 minutos (para el usuario real)
+(crontab -u $REAL_USER -l 2>/dev/null; echo "*/5 * * * * $REAL_HOME/duckdns/duck.sh >/dev/null 2>&1") | crontab -u $REAL_USER -
 
 # Ejecutar una vez para probar
-~/duckdns/duck.sh
+sudo -u $REAL_USER "$REAL_HOME/duckdns/duck.sh"
