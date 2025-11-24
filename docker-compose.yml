@@ -1,26 +1,30 @@
+version: "3.8"
+
 services:
   wg-easy:
     image: ghcr.io/wg-easy/wg-easy:15
     container_name: wg-easy
     environment:
-      # Host público
+      # Dominio público
       - WG_HOST=wirednssya.duckdns.org
-      # Hash de tu contraseña
+      # Hash de contraseña (IMPORTANTE: $$ → para docker-compose)
       - WG_PASSWORD_HASH=$$2a$$12$$sqNgVf4k3OcrF7cnITZKIOGD7RElDRmvzdYLagVgkd4PnEZkQAXbG
-      # Puerto de WireGuard
+      # Puerto WireGuard
       - WG_PORT=51820
-      # DNS por defecto para clientes (Pi-hole)
+      # DNS DEFAULT hacia Pi-hole dentro de la red docker
       - WG_DEFAULT_DNS=10.8.1.3
-      # Dirección inicial del rango de WG (nuevo formato v15)
+      # Dirección inicial de WG (nuevo formato WG v15)
       - WG_DEFAULT_ADDRESS=10.8.0.2
-      # Habilitar HTTPS autofirmado
+      # Activar HTTPS
       - WG_ENABLE_HTTPS=true
       - WG_HTTPS_CERT=/etc/wireguard/ssl/cert.pem
       - WG_HTTPS_KEY=/etc/wireguard/ssl/key.pem
+      # Desactivar IPv6 si tu kernel minimal falla
+      - WG_IPV6_ENABLED=false
 
     volumes:
       - /home/wg-easy:/etc/wireguard
-      - /home/wg-easy/ssl:/etc/wireguard/ssl  # volumen para certificados
+      - /home/wg-easy/ssl:/etc/wireguard/ssl
 
     ports:
       - "51820:51820/udp"
@@ -39,28 +43,37 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
 
     networks:
-      wg-easy:
+      wg-easy-net:
         ipv4_address: 10.8.1.4
 
   pihole:
-    image: pihole/pihole
+    image: pihole/pihole:latest
     container_name: pihole
+
     environment:
+      - TZ=America/Bogota
       - WEBPASSWORD=@SoporteyAportes$
+      - DNSMASQ_LISTENING=all
+      - FTLCONF_LOCAL_IPV4=10.8.1.3
+      - ServerIP=10.8.1.3
+
     volumes:
       - /home/pihole/etc-pihole:/etc/pihole
       - /home/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "5353:80/tcp"
+      - "5353:80/tcp"   # interfaz Pi-hole → http://tu-servidor:5353/admin
+
     restart: unless-stopped
+
     networks:
-      wg-easy:
+      wg-easy-net:
         ipv4_address: 10.8.1.3
 
 networks:
-  wg-easy:
+  wg-easy-net:
     ipam:
       config:
         - subnet: 10.8.1.0/24
